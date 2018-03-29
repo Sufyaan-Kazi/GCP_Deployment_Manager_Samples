@@ -1,6 +1,16 @@
 # GCP_Deployment_Manager_Samples
 Sample repo to deploy a 3 tier web app to GCP using Deployment Manager
 
+- [GCP_Deployment_Manager_Samples](#gcp-deployment-manager-samples)
+  * [Disclaimer: Don't take this as gospel!!](#disclaimer--don-t-take-this-as-gospel--)
+  * [What is this?](#what-is-this-)
+  * [Tidy Up](#tidy-up)
+  * [Known Issues](#known-issues)
+  * [What does this deploy?](#what-does-this-deploy-)
+  * [To Do](#to-do)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 ## Disclaimer: Don't take this as gospel!!
 These scripts are an example of how to use Deployment Manager to deploy a 3 tier web-app, specifically this web app: https://github.com/Sufyaan-Kazi/spring-boot-cities-service and this one: https://github.com/Sufyaan-Kazi/spring-boot-cities-ui. They are not a BEST practice way of doing it and certainly should NOT be used for production ready code!
 
