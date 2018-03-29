@@ -8,13 +8,16 @@
 . ./vars.properties
 . ./dmFunctions.sh
 
+##
+# Wrapper method to create the VPC network for these microservices
+###
 createVPCNetwork() {
   echo_mesg "Creating network and subnet"
   createVPCStuff $APP $NETWORK $SUBNET $SUBNET_CIDR $APP_REGION
 }
 
 ###
-# Deploys the backend microservice - cities-service.
+# Deploys the backend microservice: cities-service.
 # This microservice reads city data from a database and exposes Restful endpoints for CRUD(ish) actions
 #
 # The function creates an instance template, instance group, autoscaling group, internal load balancer and healthcheck.
@@ -87,7 +90,7 @@ BUCKET_NAME=$PROJECT-$APP
 . ./cleanup.sh
 
 echo_mesg "****** Deploying Microservices *****"
-#gcloud projects create $PROJECT 
+######## gcloud projects create $PROJECT 
 
 ######### Create Bucket
 echo_mesg "Creating Bucket"
@@ -108,7 +111,7 @@ echo "  -> URL is $URL"
 checkAppIsReady $URL
 # GCE Enforcer is a bit of a bully sometimes and in addition the app needs to stabilise a bit
 sleep 7
-#checkAppIsReady $URL
+checkAppIsReady $URL
 echo_mesg "Launching Browser: $URL"
 open http://${URL}/
 
