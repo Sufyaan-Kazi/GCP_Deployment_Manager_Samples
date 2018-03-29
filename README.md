@@ -13,6 +13,8 @@ When deployCitiesMicroServices.sh is run, it reads in variables from the file 'v
 
 In a real world, these two microservices would actualy be deployed as containers using K8S, PCF, OpenShift or a.n.other. This is an example of how to automate deployment in a non-containersied world using pure IaaS on GCP.
 
+N.B. The sub-directory 'old' is an example of deployment NOT using jinja and just plain old yaml for all the objects. In this method there is a lot of duplication of yaml .....
+
 ## Known Issues
 If you deploy this to a GCP project that has some kind of auotmated firewall enforcement to stop all instances having external access by default etc, then the app will still deploy and be reachable correctly. However, the startup will be longer and may need an additional 5-10 minutes to be completely ready even after the script finishes.
 
