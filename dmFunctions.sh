@@ -20,7 +20,7 @@ getYAMLValue() {
 }
 
 ###
-# Wrapper to gcloud method to create a deployment.
+# Wrapper of the gcloud method to create a deployment.
 #
 # Method checks the right number of args were supplied then calls the create deployment method
 ###
@@ -37,7 +37,7 @@ createDeployment() {
 }
 
 ###
-# Wrapper to gcloud method to create a deployment.
+# Wrapper of the gcloud method to create a deployment.
 #
 # Method checks the right number of args were supplied then calls the create deployment method
 ###
@@ -160,7 +160,7 @@ createRegionalInstanceGroup() {
 
 ###
 #
-# Method to wait for the IP of a forwarding rule to be created.
+# Method that waits for the IP of a forwarding rule
 #
 # This method will wait until the forwarding rule of an external load balancer has been provided with an external IP,
 # and can be used to confirm the load balancer is ready to serve traffic
@@ -197,7 +197,7 @@ waitForHealthyBackend() {
 }
 
 ###
-# A utiltiy wrapper method to create firewall rules.
+# A utiltiy wrapper method to create firewall rules between a load balancer and a tag
 #
 ###
 createFirewall-LBToTag() {
@@ -213,7 +213,7 @@ createFirewall-LBToTag() {
 }
 
 ###
-# A utiltiy wrapper method to create firewall rules.
+# A utility wrapper method to create firewall rules between tags
 #
 ###
 createFirewall-TagToTag() {
