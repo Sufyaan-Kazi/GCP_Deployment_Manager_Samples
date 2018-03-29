@@ -26,3 +26,4 @@ If you deploy this to a GCP project that has some kind of auotmated firewall enf
 * Modify the script to create an instance image for the common aspects of the compute instances, and make the two instances refer to that image as the source, to reduce startup time and duplication.
 * Insert some kind of discovery service layer so the ip address of the internal load balancer is invisible to the web layer
 * Remove the need to "discover" the ip address of the internal load balancer and to "inject" it into the deployment of the cities-ui as a dependency
+* Use CloudSQL or a.n.other as the third tier rather than H2 as the Spring Boot apps currently do
