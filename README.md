@@ -15,6 +15,7 @@ Sample repo to deploy a 3 tier web app to GCP using Deployment Manager
 These scripts are an example of how to use Deployment Manager to deploy a 3 tier web-app, specifically this web app: https://github.com/Sufyaan-Kazi/spring-boot-cities-service and this one: https://github.com/Sufyaan-Kazi/spring-boot-cities-ui. They are not a BEST practice way of doing it and certainly should NOT be used for production ready code!
 
 ## What is this?
+![Cities](/DepManager.png)
 There are two scripts - one "generic" ish script called ```dmFunctions.sh```. This has "generic" ish functions to deploy different types of gcloud objects such as load balancers, health-checks etc using jinja templates. The other script is a wrapper called ```deployCitiesMicroServices.sh``` which is not generic. It specifcally calls methods from ```dmFunctions.sh``` to deploy the two 'cities' microservices"
 
 The automation uses jinja templates. For example, the 'it.jinja' file is a template to deploy a compute instance, since it is a template it has placeholders for parameters like instance name, network etc.
