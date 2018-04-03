@@ -15,7 +15,6 @@ Sample repo to deploy a 3 tier web app to GCP using Deployment Manager
 These scripts are an example of how to use Deployment Manager to deploy a 3 tier web-app, specifically this web app: https://github.com/Sufyaan-Kazi/spring-boot-cities-service and this one: https://github.com/Sufyaan-Kazi/spring-boot-cities-ui. They are not a BEST practice way of doing it and certainly should NOT be used for production ready code!
 
 ## What is this?
-![Cities](/DepManager.png)
 There are two scripts - one "generic" ish script called ```dmFunctions.sh```. This has "generic" ish functions to deploy different types of gcloud objects such as load balancers, health-checks etc using jinja templates. The other script is a wrapper called ```deployCitiesMicroServices.sh``` which is not generic. It specifcally calls methods from ```dmFunctions.sh``` to deploy the two 'cities' microservices"
 
 The automation uses jinja templates. For example, the 'it.jinja' file is a template to deploy a compute instance, since it is a template it has placeholders for parameters like instance name, network etc.
@@ -33,6 +32,8 @@ To remove all the deployments made by this script, run ```cleanup.sh```. When yo
 If you deploy this to a GCP project that has some kind of auotmated firewall enforcement to stop all instances having external access by default etc, then the app will still deploy and be reachable correctly. However, the startup will be longer and may need an additional 5-10 minutes to be completely ready even after the script finishes.
 
 ## What does this deploy?
+![Cities](/DepManager.png)
+
 * An instance group with health-checks, autoscaling etc for the cities-service microservice, including an internal TCP load balancer to distribute traffic over this group.
 * An instance group with health-checks, autoscaling etc for the cities-ui microservice, including an external HTTP load balancer to distribute traffic to this web layer
 * Firewall rules to allow the web layer to communicate with the back-end layer
