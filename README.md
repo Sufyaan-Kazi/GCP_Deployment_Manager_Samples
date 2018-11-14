@@ -12,10 +12,50 @@
 Sample (Non Production) repo to deploy a 3 tier web app to GCP using Deployment Manager
 
 ## Disclaimer: Don't take this as gospel!!
-These scripts are an example of how to use Deployment Manager to deploy a 3 tier web-app, specifically this web app: https://github.com/Sufyaan-Kazi/spring-boot-cities-service and this one: https://github.com/Sufyaan-Kazi/spring-boot-cities-ui. They are not a BEST practice way of doing it and certainly should NOT be used for production ready code!
+These scripts are an example of how to use Deployment Manager to deploy a 3 tier web-app, specifically this web app: https://github.com/Sufyaan-Kazi/spring-boot-cities-service and this one: https://github.com/Sufyaan-Kazi/spring-boot-cities-ui. They are not a BEST practice way of doing it and certainly should NOT be used  AS IS in PRODUCTION!
 
 ## What is this?
-There are two scripts - one "generic" ish script called ```dmFunctions.sh```. This has "generic" ish functions to deploy different types of gcloud objects such as load balancers, health-checks etc using jinja templates. The other script is a wrapper called ```deployCitiesMicroServices.sh``` which is not generic. It specifcally calls methods from ```dmFunctions.sh``` to deploy the two 'cities' microservices"
+There are two scripts - one "generic" ish script called ```dmFunctions.sh``` and another which is very specific, i.e. deploys the microservices ``deployCitiesMicroservices.sh``. 
+
+The basic logic is as follows, execute deployCitiesMicroservices.sh, this will:
+* Load variables from vars.txt
+* Reads the common GCP functions into memory (dmFunctions.sh)
+* Starts a timer
+* Calls the cleanup script to delete any previous GCP components for these
+  microservices
+* Use gsutil to create a bucket in Cloud Storage
+* Create a VPC Network
+    - This calls a function within the script, but the actual work to construct
+      a VPC network is common and not specific to this app, so it invokes the
+      function from the dmFunctions.sh shell script.
+    - This creates a custom VPC Network and subnet for the region defined in
+      vars.properties
+* Deploy the back end Microservice cities-service
+    - This copies the startup script required by the Compute Instances of this
+      microservice into cloud storage
+    - Creates a Regional InstanceGroup in this subnet
+    - Creates an Internal Load Balancer to front traffic to this Instance Group
+* Deploy the front end Microservice cities-ui
+    - This copies the startup script required by Compute Instances of this
+      microservice into cloud storage
+    - Creates a Regional InstanceGroup in this subnet
+    - Sleeps for 2 minutes to enable apt-get to complete and for the application
+      to start up
+    - Creates an HTTP Load Balancer to diret traffic to this Instance Group
+* Create the Firewall rules
+    -  Creates the firewall rule to allow the Healthcheck from the Internal Load
+       Balancer to reach the back-end Microservice (cities-service)
+    -  Creates the firewall rules to allow external HTTP traffic as well as the
+       healthcheck to access the cities-ui Microservice
+    - Creates the Firewall rule that allows http REST calls from cities-ui to
+      cities-service
+    - Waits while the backends and front-ends stabilise and are marked as
+      healthy in the respective load balancers
+* Try to launch a browser to hit the web site
+* Displays completion message with time for how long it took
+
+Since this is not using containers, K8S or a PaaS, it could take about 20
+minutes to completely execute. 
 
 The automation uses jinja templates. For example, the 'it.jinja' file is a template to deploy a compute instance, since it is a template it has placeholders for parameters like instance name, network etc.
 
